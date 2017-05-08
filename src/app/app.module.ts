@@ -11,11 +11,13 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { Reddit } from '../providers/reddit';
 import { Data } from '../providers/data';
 import { MyApp } from './app.component';
-// import { HomePage } from '../pages/home/home';
+import { HomePage } from '../pages/home/home';
+
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { MyApp } from './app.component';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    HomePage
   ],
   providers: [
     Data,
