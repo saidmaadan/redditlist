@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the Settings page.
@@ -14,11 +14,29 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Settings {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  perPage: number;
+  sort: string;
+  subreddit: string;
+
+  constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+    this.perPage = this.navParams.get('perPage');
+    this.sort = this.navParams.get('sort');
+    this.subreddit = this.navParams.get('subreddit');
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Settings');
+  save(): void{
+    let settings = {
+      perPage: this.perPage,
+      sort: this.sort,
+      subreddit: this.subreddit
+
+    };
+    this.viewCtrl.dismiss(settings);
+  }
+  
+  close():void{
+    this.viewCtrl.dismiss();
   }
 
 }
