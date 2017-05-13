@@ -108,4 +108,16 @@ export class Reddit {
     });
   }
 
+  nextPage(){
+    this.page++;
+    this.fetchData();
+  }
+
+  resetPosts(){
+    this.page = 1;
+    this.posts = [];
+    this.after = null;
+    this.fetchData();
+  }
+
 }

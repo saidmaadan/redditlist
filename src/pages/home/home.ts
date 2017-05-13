@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, Platform } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Data } from '../../providers/data';
 import { Reddit } from '../../providers/reddit';
@@ -23,7 +24,8 @@ export class HomePage {
     public redditService: Reddit,
     public modalCtrl: ModalController,
     public platform: Platform,
-    public keyboard: Keyboard
+    public keyboard: Keyboard,
+    public iab: InAppBrowser
   ){
     this.subredditControl = new FormControl();
   }
@@ -45,11 +47,11 @@ export class HomePage {
   }
 
   loadSettings(): void {
-    console.log("TODO: Implement loadSettings()");
+    this.redditService.fetchData();
   }
 
   showComments(post): void {
-    console.log("TODO: Implement showComments()");
+    let browser = this.iab.create('http://reddit.com' + post.data.permalink, '_system')
   }
 
   openSettings(): void {
@@ -57,15 +59,34 @@ export class HomePage {
   }
 
   playVideo(e, post): void {
-    console.log("TODO: Implement playVideo()");
+    //create a reference to the video
+    let video = e.target;
+
+    if(!post.alreadyLoaded){
+      post.showLoader = true;
+    }
+    //Toggle the video playing
+    if(video.paused){
+
+      //Show the loader gif
+      video.play();
+
+      //Once the video starts playing, remove the loader gif
+      video.addEventListener("playing", function(e){
+        post.showLoader = false;
+        post.alreadyLoaded = true;
+      });
+    }else{
+      video.pause();
+    }
   }
 
   changeSubreddit(): void {
-    console.log("TODO: Implement changeSubreddit()");
+    this.redditService.resetPosts();
   }
 
   loadMore(): void {
-    console.log("TODO: Implement loadMore()");
+    this.redditService.nextPage();
   }
 
 }
