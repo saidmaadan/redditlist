@@ -20,7 +20,7 @@
     <div *ngFor="let post of redditService.posts">
       <ion-item (click)="playVideo($event, post)" no-lines style="background-color: #100;">
         <img src="assets/images/loader.gif" *ngIf="post.showLoader" />
-        <video loop [src]="post.data.url" [poster]="post.data.snapshoot">
+        <video loop [src]="post.data.url" [poster]="post.data.snapshot">
         </video>
       </ion-item>
       <ion-list-header (click)="showComments(post)" style="text-align: left;">
